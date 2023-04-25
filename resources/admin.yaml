@@ -1,0 +1,321 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: namespace-admin
+rules:
+#MAIN API
+- apiGroups:
+  - ""
+  resources:
+  - endpoints             
+  - events                
+  - limitranges            
+  - namespaces             
+  - status                   
+  - pods                    
+  - log                    
+  - replicationcontrollers 
+  - scale                  
+  - resourcequotas
+  - nodes            
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - serviceaccounts
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+  - impersonate
+- apiGroups:
+  - ""
+  resources:
+  - services            
+  - configmaps          
+  - secrets             
+  - persistentvolumeclaims
+  - pods/portforward
+  - pods/exec
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+#APPS API
+- apiGroups:
+  - apps
+  resources:
+  - daemonsets
+  - deployments
+  - deployments/rollback
+  - deployments/scale
+  - replicasets
+  - replicasets/scale
+  - statefulsets
+  - statefulsets/scale
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+- apiGroups:
+  - apps
+  resources:
+  - configmaps
+  - endpoints
+  - pods
+  - secrets
+  - services
+  - daemonsets/status
+  - deployments/status
+  - replicasets/status
+  - statefulsets/status
+  verbs:
+  - get
+  - list
+  - watch
+#AUTHROZIATION API
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - localsubjectaccessreviews
+  verbs:
+  - create
+#AUTOSCALING API
+- apiGroups:
+  - autoscaling
+  resources:
+  - horizontalpodautoscalers
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+- apiGroups:
+  - autoscaling
+  resources:
+  - horizontalpodautoscalers/status
+  verbs:
+  - get
+  - list
+  - watch
+#BATCH API
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  - jobs
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs/status
+  - jobs/status
+  verbs:
+  - get
+  - list
+  - watch
+#EXTENSION API
+- apiGroups:
+  - extensions
+  resources:
+  - daemonsets
+  - deployments
+  - deployments/rollback
+  - deployments/scale
+  - ingresses
+  - replicasets
+  - replicasets/scale
+  - replicationcontrollers/scale
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+- apiGroups:
+  - extensions
+  resources:
+  - daemonsets/status
+  - deployments/status
+  - ingresses/status
+  - networkpolicies
+  - replicasets/status
+  - configmaps
+  - endpoints
+  - pods
+  - secrets
+  - services
+  verbs:
+  - get
+  - list
+  - watch
+#METRICS API
+- apiGroups:
+  - metrics.k8s.io
+  resources:
+  - pods
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+#NETWORKING API
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - ingresses/status
+  - networkpolicies
+  verbs:
+  - get
+  - list
+  - watch
+#POLICY API
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  - poddisruptionbudgets/status
+  verbs:
+  - get
+  - list
+  - watch
+#RBAC API
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - rolebindings
+  - roles
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+#FLUX API
+- apiGroups:
+  - notification.toolkit.fluxcd.io
+  resources:
+  - alerts
+  - providers
+  - receivers
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+  - impersonate
+- apiGroups:
+  - helm.toolkit.fluxcd.io
+  resources:
+  - helmreleases
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+  - impersonate
+- apiGroups:
+  - source.toolkit.fluxcd.io
+  resources:
+  - buckets
+  - helmcharts
+  - gitrepositories
+  - helmrepositories
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+  - impersonate
+- apiGroups:
+  - ""
+  resources:
+  - gitrepositories.source.toolkit.fluxcd.io
+  - source.toolkit.fluxcd.io
+  - serviceaccounts
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+  - impersonate
+- apiGroups:
+  - kustomize.toolkit.fluxcd.io
+  resources:
+    - kustomizations
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
+  - impersonate
